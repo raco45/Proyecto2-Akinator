@@ -1,9 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package proyecto2;
+
+import DesicionTree.ArbolD;
+import Lectura.ArchivoTxt;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -16,6 +16,14 @@ public class Proyecto2 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        JFileChooser archivo= new JFileChooser();
+        archivo.showOpenDialog(archivo);
+        String path=archivo.getSelectedFile().getAbsolutePath();
+        ArchivoTxt prueba= new ArchivoTxt();
+        
+        ArbolD arbolito= prueba.leerTxt(path);
+        
+        arbolito.preorden(arbolito.getRaiz());
     }
     
 }
