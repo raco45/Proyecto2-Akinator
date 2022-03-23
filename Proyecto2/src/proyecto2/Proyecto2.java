@@ -4,6 +4,7 @@ package proyecto2;
 import DesicionTree.ArbolD;
 import Lectura.ArchivoTxt;
 import javax.swing.JFileChooser;
+import mostrar.treeGUI;
 
 /**
  *
@@ -22,8 +23,12 @@ public class Proyecto2 {
         ArchivoTxt prueba= new ArchivoTxt();
         
         ArbolD arbolito= prueba.leerTxt(path);
+//        arbolito.preorden2(arbolito.getRaiz(),0,"");
+        treeGUI gui = new treeGUI(arbolito);
+        arbolito.partida(arbolito.getRaiz());
         
-        arbolito.preorden(arbolito.getRaiz());
+//        arbolito.preorden2(arbolito.getRaiz(),0,"");
+        
     }
     
 }

@@ -39,15 +39,15 @@ public class ArchivoTxt {
                         NodoT si;
                         NodoT no;
                         if (arbolito.esVacio()){
-                            aux= new NodoT(helper[0].replace(" ", "").toLowerCase());
-                            no= new NodoT(helper[1].replace(" ", "").toLowerCase());
-                            si= new NodoT(helper[2].replace(" ", "").toLowerCase());
+                            aux= new NodoT(helper[0]);
+                            no= new NodoT(helper[1]);
+                            si= new NodoT(helper[2]);
                             aux.setNo(no);
                             aux.setSi(si);
                             arbolito.insertarRaiz(aux);
                         }else{
-                            arbolito.insertarNo(helper[0].replace(" ", ""), helper[1].replace(" ", "").toLowerCase());
-                            arbolito.insertarSi(helper[0].replace(" ", ""), helper[2].replace(" ", "").toLowerCase());
+                            arbolito.insertarNo(helper[0], helper[1]);
+                            arbolito.insertarSi(helper[0], helper[2]);
                         }
                     }
                     
