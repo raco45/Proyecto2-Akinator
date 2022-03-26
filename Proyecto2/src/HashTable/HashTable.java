@@ -15,14 +15,14 @@ package HashTable;
 
 public class HashTable {
 
-    Nodo table[];
+    NodoHT table[];
     int sizeTable;
     
     //Contructor del HashTable
 
     public HashTable(int size) {
         this.sizeTable = size;
-        this.table = new Nodo[sizeTable];
+        this.table = new NodoHT[sizeTable];
         for (int i = 0; i < sizeTable; i++) {
             this.table[i] = null;
         }
@@ -54,7 +54,7 @@ public class HashTable {
         int position = hashing(name);
         boolean exist = false;
         if (this.table[position] != null) {
-            Nodo temp = this.table[position];
+            NodoHT temp = this.table[position];
             if (temp.getName().equals(name)) {
                 exist = true;
             }
@@ -65,20 +65,20 @@ public class HashTable {
                 }
             }
             if (!exist) {
-                Nodo n = new Nodo(name);
+                NodoHT n = new NodoHT(name);
                 temp.setNext(n);
             }
         }else{
-            Nodo n = new Nodo(name);
+            NodoHT n = new NodoHT(name);
             this.table[position] = n;
         }
     }
     
     //Funcion para buscar en el HashTable
     
-    public Nodo search(String name){
+    public NodoHT search(String name){
         int position = hashing(name);
-        Nodo temp = this.table[position];
+        NodoHT temp = this.table[position];
         boolean exist = false;
         if (temp != null) {
             if (temp.getNext() == null) {
@@ -115,7 +115,7 @@ public class HashTable {
             if (this.table[i] != null) {
                 System.out.println(this.table[i].getName());
                 if (this.table[i] != null) {
-                    Nodo temp = this.table[i].getNext();
+                    NodoHT temp = this.table[i].getNext();
                     while(temp != null){
                         System.out.println(temp.getName());
                         temp = temp.getNext();

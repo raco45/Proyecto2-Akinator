@@ -11,32 +11,32 @@ package HashTable;
  * @author AROMERO
  */
 
-    // Clase Nodo para HashTable
+    // Clase NodoHT para HashTable
 
-public class Nodo {
-    private Nodo next;
+public class NodoHT {
+    private NodoHT next;
     private String name;
     
-    //Constructor del Nodo
+    //Constructor del NodoHT
     
-    public Nodo(String name){
+    public NodoHT(String name){
         this.next = null;
         this.name = name;
     }
     
-    //Metodos getters and setters para el Nodo
+    //Metodos getters and setters para el NodoHT
     
     /**
      * @return the next
      */
-    public Nodo getNext() {
+    public NodoHT getNext() {
         return next;
     }
 
     /**
      * @param next the next to set
      */
-    public void setNext(Nodo next) {
+    public void setNext(NodoHT next) {
         this.next = next;
     }
 
