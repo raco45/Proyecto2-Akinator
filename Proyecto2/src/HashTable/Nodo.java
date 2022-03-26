@@ -10,15 +10,22 @@ package HashTable;
  *
  * @author AROMERO
  */
+
+    // Clase Nodo para HashTable
+
 public class Nodo {
     private Nodo next;
     private String name;
+    
+    //Constructor del Nodo
     
     public Nodo(String name){
         this.next = null;
         this.name = name;
     }
-
+    
+    //Metodos getters and setters para el Nodo
+    
     /**
      * @return the next
      */

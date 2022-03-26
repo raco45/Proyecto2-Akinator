@@ -10,10 +10,15 @@ package HashTable;
  *
  * @author AROMERO
  */
+
+    //Clase HashTable
+
 public class HashTable {
 
     Nodo table[];
     int sizeTable;
+    
+    //Contructor del HashTable
 
     public HashTable(int size) {
         this.sizeTable = size;
@@ -22,7 +27,9 @@ public class HashTable {
             this.table[i] = null;
         }
     }
-
+    
+    //Funcion hash 
+    
     public int hashing(String key) {
         int value = 0;
         int position = 1;
@@ -40,6 +47,8 @@ public class HashTable {
         }
         return (value % sizeTable);
     }
+    
+    //Procedimiento para insertar en el HashTable
     
     public void add(String name){
         int position = hashing(name);
@@ -65,6 +74,8 @@ public class HashTable {
         }
     }
     
+    //Funcion para buscar en el HashTable
+    
     public Nodo search(String name){
         int position = hashing(name);
         Nodo temp = this.table[position];
@@ -89,11 +100,15 @@ public class HashTable {
         }
     }
     
+    //Procedimiento para vaciar/inicializar HashTable
+    
     public void empty(){
         for (int i = 0; i < sizeTable; i++) {
             this.table[i] = null;
         }
     }
+    
+    //Procedimiento para imprimir contenido del HashTable
     
     public void print(){
         for (int i = 0; i < sizeTable; i++) {
