@@ -60,23 +60,22 @@ public class ArbolD {
         temp.setNo(respNo);
         respNo.setPadre(temp);
     }
-    public void preorden(NodoT root){
+    public String preorden(NodoT root){
+        String escritura="";
         if(root!=null){
-            //Imprimo primero
-                //pregunto por el hijo izquierdo
             if(root.getNo()!=null && root.getSi()!=null){
-                
-                System.out.println(root.getPreg_resp()+" ");
-                preorden(root.getNo());
-                // pregunto por el hijo derecho
-                preorden(root.getSi());
+                escritura+=root.getPreg_resp()+", "+root.getNo().getPreg_resp()+", "+root.getSi().getPreg_resp()+"\n";
+                //System.out.println(escritura);
+                escritura+=preorden(root.getNo());
+                escritura+=preorden(root.getSi());
             }
-//            preorden(root.getNo());
-//                // pregunto por el hijo derecho
-//            preorden(root.getSi());
-            
         }
+        return escritura;
     }
+                
+                
+
+            
     
 //    public String preorden2(NodoT raiz, int cont,String graf){
 //        String str=" ";

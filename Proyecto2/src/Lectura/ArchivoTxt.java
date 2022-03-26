@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,6 +16,9 @@ import javax.swing.JOptionPane;
  * @author raco1
  */
 public class ArchivoTxt {
+    
+    boolean cargado;
+    String[] title;
     
     public ArbolD leerTxt(String rutaArchivo){
         File file= new File(rutaArchivo);
@@ -25,14 +29,15 @@ public class ArchivoTxt {
             BufferedReader br= new BufferedReader(fileReader);
             
             String line;
+            
             try{
 //                int readMode=0;
-                String[] titulo;
                 ArbolD arbolito= new ArbolD();
                 
                 while ((line=br.readLine())!=null){
                     if(line.split(",")[0].equals("Pregunta")){
-                        titulo=line.split(",");
+                        String[] titulo=line.split(",");
+                        this.title=titulo;
                     }else{
                         String[] helper=line.split(",");
                         NodoT aux;
@@ -56,6 +61,7 @@ public class ArchivoTxt {
                 }
                 br.close();
                 
+                
                 JOptionPane.showMessageDialog(null,"Lectura exitosa.");
                 return arbolito;
                 
@@ -72,7 +78,25 @@ public class ArchivoTxt {
             
             
         }
+        
          
+    }
+    
+    public void escribirTxt(String rutaArchivo,ArbolD tree){
+        
+        String escritura=title[0]+", "+title[1]+", "+title[2]+"\n";
+        
+        String raices= tree.preorden(tree.getRaiz());
+        try{
+            escritura=escritura+raices;
+            System.out.println(escritura);
+            PrintWriter pw = new PrintWriter(rutaArchivo);
+            pw.print(escritura);
+            pw.close();
+            JOptionPane.showMessageDialog(null, "Guardado exitoso");
+        }catch(Exception err){
+            JOptionPane.showMessageDialog(null,"Error de lectura");
+        }
     }
     
     
