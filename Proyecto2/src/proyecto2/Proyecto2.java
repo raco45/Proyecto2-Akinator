@@ -2,8 +2,11 @@
 package proyecto2;
 
 import DesicionTree.ArbolD;
+import HashTable.HashTable;
+import Lectura.ArbolHash;
 import Lectura.ArchivoTxt;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -21,11 +24,20 @@ public class Proyecto2 {
         archivo.showOpenDialog(archivo);
         String path=archivo.getSelectedFile().getAbsolutePath();
         ArchivoTxt prueba= new ArchivoTxt();
+        ArbolHash nuevo=prueba.leerTxt(path);
+        ArbolD arbolito= nuevo.getArbolito();
+        HashTable tabla=nuevo.getTable();
+        String xd= JOptionPane.showInputDialog("Prueba");
+        System.out.println(xd);
         
-        ArbolD arbolito= prueba.leerTxt(path);
-        prueba.escribirTxt(path, arbolito);
-        arbolito.partida(arbolito.getRaiz());
-        prueba.escribirTxt(path, arbolito);
+//        tabla.print();
+//        System.out.println(tabla.search("Perro").getName());
+//        arbolito.partida(arbolito.getRaiz());
+//        System.out.println(arbolito.preorden(arbolito.getRaiz()));
+
+////        prueba.escribirTxt(path, arbolito);
+//        prueba.escribirTxt(path, arbolito);
+//        arbolito.animales(arbolito.getRaiz());
 //        
 //        
 //        arbolito.preorden2(arbolito.getRaiz(),0,"");

@@ -1,6 +1,7 @@
 
 package DesicionTree;
 
+import HashTable.HashTable;
 import javax.swing.JOptionPane;
 
 /**
@@ -72,35 +73,46 @@ public class ArbolD {
         }
         return escritura;
     }
+    
+    /**
+     * Metodo que busca los animales en el arbol
+     * @param root 
+     */
+    public String animales(NodoT root){
+        String esc="";
+        if(root!=null){
+            if(root.getNo()==null && root.getSi()==null){
+//                System.out.println(root.getPreg_resp()+"\n");
+                esc+=root.getPreg_resp().replace(" ", "")+"\n";
+                
+                //System.out.println(escritura);
+            }
+                esc+=animales(root.getNo());
+                esc+=animales(root.getSi());
+        }
+        return esc;
+    }
+    public HashTable llenado(){
+        String[] escri= this.animales(raiz).split("\n");
+        HashTable nuevo= new HashTable(escri.length);
+        for (int i = 0; i < escri.length; i++) {
+            nuevo.add(escri[i]);
+        }
+        return nuevo;
+    }
+    
+    
                 
                 
 
-            
-    
-//    public String preorden2(NodoT raiz, int cont,String graf){
-//        String str=" ";
-//        String repeated= str.repeat(cont);
-//        System.out.println(repeated+"|_"+raiz.getPreg_resp());
-//        graf+=repeated+"|_"+raiz.getPreg_resp()+"\n";
-//        if (raiz.getNo()!=null){
-//            
-//            graf=preorden2(raiz.getNo(),cont+3,graf);
-//        }
-//            
-//        if(raiz.getSi()!=null){
-//            
-//            graf=preorden2(raiz.getSi(),cont,graf);
-//        }
-//        return graf;
-//        
-//    }
+        
     
     public NodoT partida(NodoT root){
         String ask;
         String nuevo;
         NodoT animal = null;
         if(root.getNo()!=null && root.getSi()!=null){
-            ask= JOptionPane.showInputDialog(root.getPreg_resp()+"?");
+            ask= JOptionPane.showInputDialog("¿"+root.getPreg_resp()+"?");
             if(ask.equals("si")){
                 animal=partida(root.getSi());
             }else if(ask.equals("no")){
@@ -108,23 +120,23 @@ public class ArbolD {
             }
         }else if(root.getNo()==null&& root.getSi()==null){
             animal=root;
-            ask= JOptionPane.showInputDialog("Es un "+root.getPreg_resp()+"?");
+            ask= JOptionPane.showInputDialog("¿Es un "+root.getPreg_resp()+"?");
             if(ask.equals("si")){
-                JOptionPane.showMessageDialog(null, "lo he adivinao soy buenisimo");
+                JOptionPane.showMessageDialog(null,  "¡Qué fácil, ponlo más difícil la próxima vez!");
             }else if(ask.equals("no")){
                 String nuevoQ;
-                nuevo=JOptionPane.showInputDialog("En que animal estabas pensando "+"?");
+                nuevo=JOptionPane.showInputDialog("¿Que animal era "+"?");
                 NodoT aux= new NodoT(nuevo);
                 if(animal.getPreg_resp().endsWith("a")&&(!aux.getPreg_resp().endsWith("a"))){
-                    ask=JOptionPane.showInputDialog("Que diferencia existe entre un "+aux.getPreg_resp()+ "y una "+animal.getPreg_resp()+"?" );
+                    ask=JOptionPane.showInputDialog("¿Que diferencia existe entre un "+aux.getPreg_resp()+ "y una "+animal.getPreg_resp()+"?" );
                 }else if(aux.getPreg_resp().endsWith("a")&&(!animal.getPreg_resp().endsWith("a"))){
-                    ask=JOptionPane.showInputDialog("Que diferencia existe entre una "+aux.getPreg_resp()+ "y un "+animal.getPreg_resp()+"?" );
+                    ask=JOptionPane.showInputDialog("¿Que diferencia existe entre una "+aux.getPreg_resp()+ "y un "+animal.getPreg_resp()+"?" );
                 }else if(aux.getPreg_resp().endsWith("a")&&(animal.getPreg_resp().endsWith("a"))){
-                    ask=JOptionPane.showInputDialog("Que diferencia existe entre una "+aux.getPreg_resp()+ "y una "+animal.getPreg_resp()+"?" );
+                    ask=JOptionPane.showInputDialog("¿Que diferencia existe entre una "+aux.getPreg_resp()+ "y una "+animal.getPreg_resp()+"?" );
                 }else if(!aux.getPreg_resp().endsWith("a")&&(!animal.getPreg_resp().endsWith("a"))){
-                    ask=JOptionPane.showInputDialog("Que diferencia existe entre un "+aux.getPreg_resp()+ "y un "+animal.getPreg_resp()+"?" );
+                    ask=JOptionPane.showInputDialog("¿Que diferencia existe entre un "+aux.getPreg_resp()+ "y un "+animal.getPreg_resp()+"?" );
                 }
-                nuevoQ=JOptionPane.showInputDialog("Si el animal fuera un "+aux.getPreg_resp()+" cual seria la respuesta?" );
+                nuevoQ=JOptionPane.showInputDialog("Si el animal fuera un "+aux.getPreg_resp()+", ¿cual seria la respuesta?" );
                 String ani=animal.getPreg_resp();
                 String cambio=ask;
                 if(nuevoQ.equals("si")){

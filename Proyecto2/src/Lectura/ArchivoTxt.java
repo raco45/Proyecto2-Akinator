@@ -3,6 +3,7 @@ package Lectura;
 
 import DesicionTree.ArbolD;
 import DesicionTree.NodoT;
+import HashTable.HashTable;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +21,7 @@ public class ArchivoTxt {
     boolean cargado;
     String[] title;
     
-    public ArbolD leerTxt(String rutaArchivo){
+    public ArbolHash leerTxt(String rutaArchivo){
         File file= new File(rutaArchivo);
         
         try{
@@ -56,14 +57,17 @@ public class ArchivoTxt {
                         }
                     }
                     
-                    
-                   
                 }
+                
+                HashTable tabla=arbolito.llenado();
+                
+                   
                 br.close();
+                ArbolHash aux= new ArbolHash(arbolito,tabla);
                 
                 
                 JOptionPane.showMessageDialog(null,"Lectura exitosa.");
-                return arbolito;
+                return aux;
                 
                                 
             }catch(IOException ex){
@@ -89,7 +93,7 @@ public class ArchivoTxt {
         String raices= tree.preorden(tree.getRaiz());
         try{
             escritura=escritura+raices;
-            System.out.println(escritura);
+            
             PrintWriter pw = new PrintWriter(rutaArchivo);
             pw.print(escritura);
             pw.close();
