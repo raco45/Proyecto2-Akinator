@@ -2,6 +2,8 @@
 package DesicionTree;
 
 import HashTable.HashTable;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -101,7 +103,11 @@ public class ArbolD {
         return nuevo;
     }
     
-    
+    public void prueba(){
+        Icon icono= new ImageIcon(getClass().getResource("victoria.png"));
+        JOptionPane.showInputDialog(null," ", " prueba", 0, icono, null, null);
+        
+    }
                 
                 
 
@@ -112,34 +118,67 @@ public class ArbolD {
         String nuevo;
         NodoT animal = null;
         if(root.getNo()!=null && root.getSi()!=null){
-            ask= JOptionPane.showInputDialog("¿"+root.getPreg_resp()+"?");
-            if(ask.equals("si")){
+            Icon icono= new ImageIcon(getClass().getResource("ingame.png"));
+            ask=(String) JOptionPane.showInputDialog(null,"¿"+root.getPreg_resp().replace(" ", "")+"?", "Partida", 0, icono, null, null);
+//            ask= JOptionPane.showInputDialog("¿"+root.getPreg_resp().replace(" ", "")+"?");
+            if(ask==null){
+                return null;
+                
+            }
+            else if(ask.equals("si")){
                 animal=partida(root.getSi());
             }else if(ask.equals("no")){
                 animal=partida(root.getNo());
+            }else{
+                animal=partida(root);
             }
         }else if(root.getNo()==null&& root.getSi()==null){
             animal=root;
-            ask= JOptionPane.showInputDialog("¿Es un "+root.getPreg_resp()+"?");
+            Icon pen= new ImageIcon(getClass().getResource("pensando.png"));
+            ask=(String) JOptionPane.showInputDialog(null,"¿Es un "+root.getPreg_resp().replace(" ", "")+"?", "Partida", 0, pen, null, null);
+//            ask= JOptionPane.showInputDialog("¿Es un "+root.getPreg_resp().replace(" ", "")+"?");
+            if(ask==null){
+                return null;
+            }
             if(ask.equals("si")){
-                JOptionPane.showMessageDialog(null,  "¡Qué fácil, ponlo más difícil la próxima vez!");
+                Icon icono= new ImageIcon(getClass().getResource("victoria.png"));
+                JOptionPane.showMessageDialog(null, "¡Qué fácil, ponlo más difícil la próxima vez!", "Victoria", JOptionPane.PLAIN_MESSAGE, icono);
             }else if(ask.equals("no")){
                 String nuevoQ;
-                nuevo=JOptionPane.showInputDialog("¿Que animal era "+"?");
+                String aski="";
+                Icon per= new ImageIcon(getClass().getResource("perdido.png"));
+                nuevo=(String) JOptionPane.showInputDialog(null,"¿Que animal era "+"?", "Partida", 0, per, null, null);
+//                nuevo=JOptionPane.showInputDialog("¿Que animal era "+"?");
+                if(nuevo==null){
+                    return null;
+                }
+                Icon ano= new ImageIcon(getClass().getResource("anotando.png"));
                 NodoT aux= new NodoT(nuevo);
                 if(animal.getPreg_resp().endsWith("a")&&(!aux.getPreg_resp().endsWith("a"))){
-                    ask=JOptionPane.showInputDialog("¿Que diferencia existe entre un "+aux.getPreg_resp()+ "y una "+animal.getPreg_resp()+"?" );
+                    aski=(String) JOptionPane.showInputDialog(null,"¿Que diferencia existe entre un "+aux.getPreg_resp()+ " y una "+animal.getPreg_resp()+"?", "Partida", 0, ano, null, null);
+                    //aski=JOptionPane.showInputDialog("¿Que diferencia existe entre un "+aux.getPreg_resp()+ "y una "+animal.getPreg_resp()+"?" );
                 }else if(aux.getPreg_resp().endsWith("a")&&(!animal.getPreg_resp().endsWith("a"))){
-                    ask=JOptionPane.showInputDialog("¿Que diferencia existe entre una "+aux.getPreg_resp()+ "y un "+animal.getPreg_resp()+"?" );
+                    aski=(String) JOptionPane.showInputDialog(null,"¿Que diferencia existe entre una "+aux.getPreg_resp()+ " y un "+animal.getPreg_resp()+"?", "Partida", 0, ano, null, null);
+                    //aski=JOptionPane.showInputDialog("¿Que diferencia existe entre una "+aux.getPreg_resp()+ "y un "+animal.getPreg_resp()+"?" );
                 }else if(aux.getPreg_resp().endsWith("a")&&(animal.getPreg_resp().endsWith("a"))){
-                    ask=JOptionPane.showInputDialog("¿Que diferencia existe entre una "+aux.getPreg_resp()+ "y una "+animal.getPreg_resp()+"?" );
+                    aski=(String) JOptionPane.showInputDialog(null,"¿Que diferencia existe entre una "+aux.getPreg_resp()+ " y una "+animal.getPreg_resp()+"?", "Partida", 0, ano, null, null);
+                    //aski=JOptionPane.showInputDialog("¿Que diferencia existe entre una "+aux.getPreg_resp()+ "y una "+animal.getPreg_resp()+"?" );
                 }else if(!aux.getPreg_resp().endsWith("a")&&(!animal.getPreg_resp().endsWith("a"))){
-                    ask=JOptionPane.showInputDialog("¿Que diferencia existe entre un "+aux.getPreg_resp()+ "y un "+animal.getPreg_resp()+"?" );
+                    aski=(String) JOptionPane.showInputDialog(null,"¿Que diferencia existe entre un "+aux.getPreg_resp()+ " y un "+animal.getPreg_resp()+"?", "Partida", 0, ano, null, null);
+                    //aski=JOptionPane.showInputDialog("¿Que diferencia existe entre un "+aux.getPreg_resp()+ "y un "+animal.getPreg_resp()+"?" );
                 }
-                nuevoQ=JOptionPane.showInputDialog("Si el animal fuera un "+aux.getPreg_resp()+", ¿cual seria la respuesta?" );
+                
+                if(aski==null){
+                    return null;
+                }
+                nuevoQ=(String) JOptionPane.showInputDialog(null,"Si el animal fuera un "+aux.getPreg_resp()+", ¿cual seria la respuesta?", "Partida", 0, ano, null, null);
+                //nuevoQ=JOptionPane.showInputDialog("Si el animal fuera un "+aux.getPreg_resp()+", ¿cual seria la respuesta?" );
                 String ani=animal.getPreg_resp();
-                String cambio=ask;
+                String cambio=aski;
                 if(nuevoQ.equals("si")){
+                    Icon icono= new ImageIcon(getClass().getResource("victoria.png"));
+                    JOptionPane.showMessageDialog(null, "¡Muchas gracias!, ahora soy mucho más inteligente que antes.", "Fin", JOptionPane.PLAIN_MESSAGE, icono);
+                    //JOptionPane.showMessageDialog(null,"¡Muchas gracias!, ahora soy mucho más inteligente que antes.");
                     animal.setPreg_resp(cambio);
                     this.insertarNo(animal.getPreg_resp(), ani);
                     this.insertarSi(animal.getPreg_resp(), nuevo);
