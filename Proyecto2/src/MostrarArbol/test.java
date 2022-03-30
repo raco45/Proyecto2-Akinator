@@ -5,8 +5,9 @@
  */
 package MostrarArbol;
 
-import DecisionTree.ArbolD;
-import DecisionTree.NodoT;
+
+import DesicionTree.ArbolD;
+import DesicionTree.NodoT;
 import javax.swing.JFrame;
 
 /**

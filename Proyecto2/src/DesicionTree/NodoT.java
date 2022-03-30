@@ -73,6 +73,16 @@ public class NodoT {
     public void setPadre(NodoT padre) {
         this.padre = padre;
     }
+    
+    public int nodoCompleto(NodoT n){
+        if (n == null) 
+            return 0;
+        else{
+            if (n.si != null && n.no != null) 
+                return nodoCompleto(n.si) + nodoCompleto(n.no) + 1;
+            return nodoCompleto(n.si) + nodoCompleto(n.no);
+        }
+    }
 
     
 }

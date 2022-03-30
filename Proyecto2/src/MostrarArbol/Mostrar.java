@@ -6,8 +6,10 @@
 package MostrarArbol;
 
 import javax.swing.JPanel;
-import DecisionTree.ArbolD;
-import DecisionTree.NodoT;
+
+
+import DesicionTree.ArbolD;
+import DesicionTree.NodoT;
 import java.awt.Graphics;
 /**
  *

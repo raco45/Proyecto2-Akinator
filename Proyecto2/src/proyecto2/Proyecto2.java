@@ -2,8 +2,12 @@
 package proyecto2;
 
 import DesicionTree.ArbolD;
+import DesicionTree.NodoT;
 import Lectura.ArchivoTxt;
+import MostrarArbol.Controlador;
+import MostrarArbol.Mostrar;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 
 /**
@@ -23,9 +27,24 @@ public class Proyecto2 {
         ArchivoTxt prueba= new ArchivoTxt();
         
         ArbolD arbolito= prueba.leerTxt(path);
-        prueba.escribirTxt(path, arbolito);
-        arbolito.partida(arbolito.getRaiz());
-        prueba.escribirTxt(path, arbolito);
+        
+         Mostrar obj = new Mostrar();
+        Controlador control = new Controlador(obj, arbolito);
+        
+        
+        
+        
+        control.iniciar();
+        
+        JFrame vent = new JFrame();
+        vent.getContentPane().add(obj);
+        vent.setDefaultCloseOperation(3);
+        vent.setSize(600, 600);
+        vent.setVisible(true);
+        
+//        prueba.escribirTxt(path, arbolito);
+//        arbolito.partida(arbolito.getRaiz());
+//        prueba.escribirTxt(path, arbolito);
 //        
 //        
 //        arbolito.preorden2(arbolito.getRaiz(),0,"");

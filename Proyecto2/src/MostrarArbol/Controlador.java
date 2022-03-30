@@ -5,7 +5,9 @@
  */
 package MostrarArbol;
 
-import DecisionTree.ArbolD;
+import DesicionTree.ArbolD;
+
+
 
 /**
  *
