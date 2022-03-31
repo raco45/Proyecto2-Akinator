@@ -36,7 +36,7 @@ public class ArchivoTxt {
             String line;
             
             try{
-//                int readMode=0;
+
                 ArbolD arbolito= new ArbolD();
                 
                 while ((line=br.readLine())!=null){
