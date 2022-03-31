@@ -1,0 +1,11 @@
+Pregunta,     No,     Si
+Vuela, Ladra, Caza
+ Ladra, Tiene Colmillos, Perro
+ Tiene Colmillos, Cuello Largo, Tiene Trompa
+ Cuello Largo, Raton, Jirafa
+ Tiene Trompa, Le gusta entrar al agua, Elefante
+ Le gusta entrar al agua, Jabali, Se sumerge por largo tiempo
+ Se sumerge por largo tiempo, Rinoceronte, Hipopotamo
+ Caza, Come carroña, Aguila
+ Come carroña, Es insecto, Buitre
+ Es insecto, Pajaro, Mosca

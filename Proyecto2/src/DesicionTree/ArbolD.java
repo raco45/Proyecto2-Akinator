@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
- *
+ *Arbol binario de decision 
  * @author raco1
  */
 public class ArbolD {
@@ -17,19 +17,32 @@ public class ArbolD {
         this.raiz=null;
     }
     
-    
+    /**
+     * Esta funcion se encarga de verificar si el arbol esta vacio
+     * @return Retorna un dato de tipo boleano
+     */
     public boolean esVacio(){
         return raiz==null;
     }
-    
+    /**
+     * Se encarga de vaciar el arbol
+     */
     public void vaciar(){
         this.raiz=null;
     }
-    
+    /**
+     * Se encarga de insertar un nodo en la raiz del arbol 
+     * @param preg_resp 
+     */
     public void insertarRaiz(NodoT preg_resp){
         raiz=preg_resp;
     }
-    
+    /**
+     * Se encarga de buscar el nodo que contenga el valor pasado por parametro
+     * @param root
+     * @param valor
+     * @return Retorna el nodo encontrado o null
+     */
     public NodoT buscar(NodoT root, String valor){
         NodoT buscado= null;
         
@@ -49,7 +62,12 @@ public class ArbolD {
             return null;
         }
     }
-            
+    
+    /**
+     * Se encarga de insertar un nodo por la izquierda
+     * @param padre
+     * @param valor 
+     */        
     public void insertarSi(String padre, String valor){
         NodoT temp= buscar(this.raiz, padre);
         NodoT respSi=new NodoT(valor);
@@ -57,17 +75,27 @@ public class ArbolD {
         respSi.setPadre(temp);
         
     }
+    /**
+     * Se encarga de insertar un nodo por la derecha
+     * @param padre
+     * @param valor 
+     */
     public void insertarNo(String padre, String valor){
         NodoT temp= buscar(this.raiz, padre);
         NodoT respNo=new NodoT(valor);
         temp.setNo(respNo);
         respNo.setPadre(temp);
     }
+    /**
+     * Se encarga de recorrer el arbol en preorden 
+     * @param root
+     * @return Devuelve un String con el recorrido completo
+     */
     public String preorden(NodoT root){
         String escritura="";
         if(root!=null){
             if(root.getNo()!=null && root.getSi()!=null){
-                escritura+=root.getPreg_resp()+", "+root.getNo().getPreg_resp()+", "+root.getSi().getPreg_resp()+"\n";
+                escritura+=root.getPreg_resp()+","+root.getNo().getPreg_resp()+","+root.getSi().getPreg_resp()+"\n";
                 //System.out.println(escritura);
                 escritura+=preorden(root.getNo());
                 escritura+=preorden(root.getSi());
@@ -77,7 +105,7 @@ public class ArbolD {
     }
     
     /**
-     * Metodo que busca los animales en el arbol
+     * Metodo que busca los animales(o nodos hoja) en el arbol
      * @param root 
      */
     public String animales(NodoT root){
@@ -94,33 +122,37 @@ public class ArbolD {
         }
         return esc;
     }
+    /**
+     * Se encarga de crear y llenar un HashTable
+     * @return retorna un hash table con la informacion de los animales del arbol
+     */
     public HashTable llenado(){
         String[] escri= this.animales(raiz).split("\n");
-        HashTable nuevo= new HashTable(escri.length);
+        HashTable nuevo= new HashTable(1011);
         for (int i = 0; i < escri.length; i++) {
-            nuevo.add(escri[i]);
+            nuevo.add(escri[i].toLowerCase());
         }
         return nuevo;
     }
     
-    public void prueba(){
-        Icon icono= new ImageIcon(getClass().getResource("victoria.png"));
-        JOptionPane.showInputDialog(null," ", " prueba", 0, icono, null, null);
-        
-    }
+    
                 
                 
 
         
-    
+    /**
+     * Se encarga de iniciar una ronda del juego 
+     * @param root
+     * @return El nodo final adivinado
+     */
     public NodoT partida(NodoT root){
         String ask;
         String nuevo;
         NodoT animal = null;
         if(root.getNo()!=null && root.getSi()!=null){
             Icon icono= new ImageIcon(getClass().getResource("ingame.png"));
-            ask=(String) JOptionPane.showInputDialog(null,"¿"+root.getPreg_resp().replace(" ", "")+"?", "Partida", 0, icono, null, null);
-//            ask= JOptionPane.showInputDialog("¿"+root.getPreg_resp().replace(" ", "")+"?");
+            ask=(String) JOptionPane.showInputDialog(null,"¿"+root.getPreg_resp()+"?", "Partida", 0, icono, null, null);
+
             if(ask==null){
                 return null;
                 
@@ -136,19 +168,19 @@ public class ArbolD {
             animal=root;
             Icon pen= new ImageIcon(getClass().getResource("pensando.png"));
             ask=(String) JOptionPane.showInputDialog(null,"¿Es un "+root.getPreg_resp().replace(" ", "")+"?", "Partida", 0, pen, null, null);
-//            ask= JOptionPane.showInputDialog("¿Es un "+root.getPreg_resp().replace(" ", "")+"?");
+
             if(ask==null){
                 return null;
             }
-            if(ask.equals("si")){
+            else if(ask.toLowerCase().equals("si")||ask.toLowerCase().equals("yes")){
                 Icon icono= new ImageIcon(getClass().getResource("victoria.png"));
                 JOptionPane.showMessageDialog(null, "¡Qué fácil, ponlo más difícil la próxima vez!", "Victoria", JOptionPane.PLAIN_MESSAGE, icono);
-            }else if(ask.equals("no")){
+            }else if(ask.toLowerCase().equals("no")){
                 String nuevoQ;
                 String aski="";
                 Icon per= new ImageIcon(getClass().getResource("perdido.png"));
                 nuevo=(String) JOptionPane.showInputDialog(null,"¿Que animal era "+"?", "Partida", 0, per, null, null);
-//                nuevo=JOptionPane.showInputDialog("¿Que animal era "+"?");
+                
                 if(nuevo==null){
                     return null;
                 }
@@ -156,49 +188,67 @@ public class ArbolD {
                 NodoT aux= new NodoT(nuevo);
                 if(animal.getPreg_resp().endsWith("a")&&(!aux.getPreg_resp().endsWith("a"))){
                     aski=(String) JOptionPane.showInputDialog(null,"¿Que diferencia existe entre un "+aux.getPreg_resp()+ " y una "+animal.getPreg_resp()+"?", "Partida", 0, ano, null, null);
-                    //aski=JOptionPane.showInputDialog("¿Que diferencia existe entre un "+aux.getPreg_resp()+ "y una "+animal.getPreg_resp()+"?" );
+                    
                 }else if(aux.getPreg_resp().endsWith("a")&&(!animal.getPreg_resp().endsWith("a"))){
                     aski=(String) JOptionPane.showInputDialog(null,"¿Que diferencia existe entre una "+aux.getPreg_resp()+ " y un "+animal.getPreg_resp()+"?", "Partida", 0, ano, null, null);
-                    //aski=JOptionPane.showInputDialog("¿Que diferencia existe entre una "+aux.getPreg_resp()+ "y un "+animal.getPreg_resp()+"?" );
+                    
                 }else if(aux.getPreg_resp().endsWith("a")&&(animal.getPreg_resp().endsWith("a"))){
                     aski=(String) JOptionPane.showInputDialog(null,"¿Que diferencia existe entre una "+aux.getPreg_resp()+ " y una "+animal.getPreg_resp()+"?", "Partida", 0, ano, null, null);
-                    //aski=JOptionPane.showInputDialog("¿Que diferencia existe entre una "+aux.getPreg_resp()+ "y una "+animal.getPreg_resp()+"?" );
+                    
                 }else if(!aux.getPreg_resp().endsWith("a")&&(!animal.getPreg_resp().endsWith("a"))){
                     aski=(String) JOptionPane.showInputDialog(null,"¿Que diferencia existe entre un "+aux.getPreg_resp()+ " y un "+animal.getPreg_resp()+"?", "Partida", 0, ano, null, null);
-                    //aski=JOptionPane.showInputDialog("¿Que diferencia existe entre un "+aux.getPreg_resp()+ "y un "+animal.getPreg_resp()+"?" );
+                    
                 }
                 
                 if(aski==null){
                     return null;
                 }
-                nuevoQ=(String) JOptionPane.showInputDialog(null,"Si el animal fuera un "+aux.getPreg_resp()+", ¿cual seria la respuesta?", "Partida", 0, ano, null, null);
-                //nuevoQ=JOptionPane.showInputDialog("Si el animal fuera un "+aux.getPreg_resp()+", ¿cual seria la respuesta?" );
+                
                 String ani=animal.getPreg_resp();
                 String cambio=aski;
-                if(nuevoQ.equals("si")){
-                    Icon icono= new ImageIcon(getClass().getResource("victoria.png"));
-                    JOptionPane.showMessageDialog(null, "¡Muchas gracias!, ahora soy mucho más inteligente que antes.", "Fin", JOptionPane.PLAIN_MESSAGE, icono);
-                    //JOptionPane.showMessageDialog(null,"¡Muchas gracias!, ahora soy mucho más inteligente que antes.");
-                    animal.setPreg_resp(cambio);
-                    this.insertarNo(animal.getPreg_resp(), ani);
-                    this.insertarSi(animal.getPreg_resp(), nuevo);
+                while(true){
+                    nuevoQ=(String) JOptionPane.showInputDialog(null,"Si el animal fuera un "+aux.getPreg_resp()+", ¿cual seria la respuesta?", "Partida", 0, ano, null, null);
+                    if(nuevoQ==null){
+                        return null;
+                    }
+                    else if(nuevoQ.toLowerCase().equals("si")||nuevoQ.toLowerCase().equals("yes")){
+
+                        animal.setPreg_resp(cambio);
+                        this.insertarNo(animal.getPreg_resp(), ani);
+                        this.insertarSi(animal.getPreg_resp(), nuevo);
+                        break;
+                    }else if(nuevoQ.toLowerCase().equals("no")){
+                        animal.setPreg_resp(cambio);
+                        this.insertarSi(animal.getPreg_resp(), ani);
+                        this.insertarNo(animal.getPreg_resp(), nuevo);
+                        break;
+                    }else if(!(nuevoQ.toLowerCase().equals("si")||nuevoQ.toLowerCase().equals("yes"))&&!(nuevoQ.toLowerCase().equals("no"))){
+                        JOptionPane.showMessageDialog(null,"Por favor ingrese, si/yes o no");
+                    }
+                    
                 }
+                Icon icono= new ImageIcon(getClass().getResource("victoria.png"));
+                JOptionPane.showMessageDialog(null, "¡Muchas gracias!, ahora soy mucho más inteligente que antes.", "Fin", JOptionPane.PLAIN_MESSAGE, icono);
+            }else{
+                animal=partida(root);
             }
         }
         return animal;
     }
-    public NodoT Max(NodoT n) {
-            if (n.getSi() == null) {
-                return n;
-            } else {
-                return Max(n.getSi());
-        }
+    
+    /**
+     * @return the raiz
+     */
+    public NodoT getRaiz() {
+        return raiz;
     }
-    public int getheight(NodoT root) {
-		if (root == null)
-			return 0;
-		return Math.max(getheight(root.getNo()), getheight(root.getSi())) + 1;
-	}
+
+    /**
+     * @param raiz the raiz to set
+     */
+    public void setRaiz(NodoT raiz) {
+        this.raiz = raiz;
+    }
     
                 
             
@@ -215,17 +265,4 @@ public class ArbolD {
     
     
 
-    /**
-     * @return the raiz
-     */
-    public NodoT getRaiz() {
-        return raiz;
-    }
-
-    /**
-     * @param raiz the raiz to set
-     */
-    public void setRaiz(NodoT raiz) {
-        this.raiz = raiz;
-    }
 }

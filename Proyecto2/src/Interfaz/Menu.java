@@ -5,16 +5,38 @@
  */
 package Interfaz;
 
+import DesicionTree.ArbolD;
+import HashTable.HashTable;
+import HashTable.NodoHT;
+import Lectura.ArbolHash;
+import Lectura.ArchivoTxt;
+import MostrarArbol.Controlador;
+import MostrarArbol.Mostrar;
+import Partidas.Partida;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author raco1
  */
 public class Menu extends javax.swing.JFrame {
-
+    ArbolD arbolDe;
+    HashTable tabla;
+    String ruta;
+    ArchivoTxt lectu;
     /**
      * Creates new form Menu
      */
     public Menu() {
+        this.arbolDe=null;
+        this.tabla=null;
+        this.ruta="";
+        this.lectu=new ArchivoTxt();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        this.setResizable(false);
         initComponents();
     }
 
@@ -29,14 +51,17 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        juego = new javax.swing.JButton();
+        cargar = new javax.swing.JButton();
+        reiniciar = new javax.swing.JButton();
+        verificar = new javax.swing.JButton();
+        mostrar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        animalName = new javax.swing.JTextField();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -45,28 +70,159 @@ public class Menu extends javax.swing.JFrame {
         jLabel1.setText("Akinator");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
 
-        jButton1.setText("jugar");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, -1, -1));
+        juego.setText("jugar");
+        juego.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                juegoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(juego, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, -1, -1));
 
-        jButton2.setText("Cargar base de conocimientos");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 340, -1, -1));
+        cargar.setText("Cargar base de conocimientos");
+        cargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 340, -1, -1));
 
-        jButton3.setText("Reinicar base de conocimientos");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 410, -1, -1));
+        reiniciar.setText("Reinicar base de conocimientos");
+        reiniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reiniciarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(reiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 410, -1, -1));
 
-        jButton4.setText("Verificar animal ");
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 130, 30));
+        verificar.setText("Verificar animal ");
+        verificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verificarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(verificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, 130, 30));
 
-        jButton5.setText("Mostrar arbol ");
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 480, -1, -1));
+        mostrar.setText("Mostrar arbol ");
+        mostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(mostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 480, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaz/defi (1) (2).png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -10, 230, 390));
+        jPanel1.add(animalName, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, 110, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 620));
+        jToggleButton1.setText("Actualizar");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 480, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 560));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void juegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_juegoActionPerformed
+        // TODO add your handling code here:
+        if(arbolDe==null||arbolDe.esVacio()){
+            JOptionPane.showMessageDialog(null,"Debe cargar la base de conocimientos para poder jugar");
+        }else{
+            try{
+                
+                Partida par= new Partida();
+                par.juego(arbolDe);
+                
+                
+            }catch(Exception err){
+                JOptionPane.showMessageDialog(null,"Error");
+            }
+        }
+    }//GEN-LAST:event_juegoActionPerformed
+
+    private void cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarActionPerformed
+        // TODO add your handling code here:
+        String path="";
+        
+        
+        try{
+            JFileChooser archivo= new JFileChooser();
+            archivo.showOpenDialog(archivo);
+            path=archivo.getSelectedFile().getAbsolutePath();
+        }catch(Exception err){
+            JOptionPane.showMessageDialog(null,"Error al cargar el archivo, se procedera a cargar uno archivo por default");
+            path="test\\archivo.csv";
+        }
+        ruta=path;
+        ArbolHash aux= lectu.leerTxt(ruta);
+
+        arbolDe=aux.getArbolito();
+        tabla=aux.getTable();
+        
+        
+        
+    }//GEN-LAST:event_cargarActionPerformed
+
+    private void verificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verificarActionPerformed
+        // TODO add your handling code here:
+        if(arbolDe==null||arbolDe.esVacio()){
+            JOptionPane.showMessageDialog(null,"Base de conocimientos vacia");
+        }else{
+            if(animalName.getText().isBlank()){
+                JOptionPane.showMessageDialog(null,"Por favor ingrese un animal");
+            }else{
+                
+                NodoHT aux= tabla.search(animalName.getText());
+                if(aux!=null){
+                    JOptionPane.showMessageDialog(null, aux.getName()+" pertenece a la base de conocimientos");
+                }else{
+                    JOptionPane.showMessageDialog(null, animalName.getText()+" no pertenece a la base de conocimientos");
+                }
+            }
+        }
+        animalName.setText("");
+    }//GEN-LAST:event_verificarActionPerformed
+
+    private void mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarActionPerformed
+        // TODO add your handling code here:
+        if(arbolDe==null||arbolDe.esVacio()){
+            JOptionPane.showMessageDialog(null,"Base de conocimientos vacia");
+        }else{
+            Mostrar obj = new Mostrar();
+            Controlador control = new Controlador(obj, arbolDe);
+            control.iniciar();
+            JFrame vent = new JFrame();
+            vent.getContentPane().add(obj);
+            vent.setDefaultCloseOperation(3);
+            vent.setSize(600, 600);
+            vent.setVisible(true);
+        }
+    }//GEN-LAST:event_mostrarActionPerformed
+
+    private void reiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reiniciarActionPerformed
+        // TODO add your handling code here:
+        if(arbolDe==null||arbolDe.esVacio()){
+            JOptionPane.showMessageDialog(null,"Base de conocimientos vacia");
+        }else{
+            arbolDe.vaciar();
+            tabla.empty();
+            JOptionPane.showMessageDialog(null,"La base de conocimientos ha sido borrada");
+        }
+    }//GEN-LAST:event_reiniciarActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+        if(arbolDe==null||arbolDe.esVacio()){
+            JOptionPane.showMessageDialog(null,"Base de conocimientos vacia");
+        }else{
+            tabla= arbolDe.llenado();
+            lectu.escribirTxt(ruta, arbolDe);
+        }
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -104,13 +260,15 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JTextField animalName;
+    private javax.swing.JButton cargar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JButton juego;
+    private javax.swing.JButton mostrar;
+    private javax.swing.JButton reiniciar;
+    private javax.swing.JButton verificar;
     // End of variables declaration//GEN-END:variables
 }

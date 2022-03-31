@@ -13,14 +13,18 @@ import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 
 /**
- *
+ *Clase creada para le lectura y escritura del archivo csv 
  * @author raco1
  */
 public class ArchivoTxt {
     
     boolean cargado;
     String[] title;
-    
+    /**
+     * Lee el archivo csv y guarda la informacion en un arbol de decisiones
+     * @param rutaArchivo
+     * @return Un objeto auxiliar que contiene el arbol y el hash table
+     */
     public ArbolHash leerTxt(String rutaArchivo){
         File file= new File(rutaArchivo);
         
@@ -73,19 +77,23 @@ public class ArchivoTxt {
             }catch(IOException ex){
                 JOptionPane.showMessageDialog(null,"Error de lectura, se procedera a cargar un archivo por default");
                 
-                return null;
+                return leerTxt("test\\archivo.csv");
             }
         }catch(FileNotFoundException ex){
             
             JOptionPane.showMessageDialog(null,"No se encontro el archivo, se procedera a cargar un archivo por default");
-            return null;
+            return leerTxt("test\\archivo.csv");
             
             
         }
         
          
     }
-    
+    /**
+     * Se encarga de tomar la informacion del arbol y guardarla en un archivo csv
+     * @param rutaArchivo
+     * @param tree 
+     */
     public void escribirTxt(String rutaArchivo,ArbolD tree){
         
         String escritura=title[0]+", "+title[1]+", "+title[2]+"\n";
@@ -99,7 +107,7 @@ public class ArchivoTxt {
             pw.close();
             JOptionPane.showMessageDialog(null, "Guardado exitoso");
         }catch(Exception err){
-            JOptionPane.showMessageDialog(null,"Error de lectura");
+            JOptionPane.showMessageDialog(null,"Error de Escritura");
         }
     }
     

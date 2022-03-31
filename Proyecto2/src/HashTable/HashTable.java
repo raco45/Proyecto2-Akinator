@@ -69,7 +69,7 @@ public class HashTable {
                 temp.setNext(n);
             }
         }else{
-            NodoHT n = new NodoHT(name);
+            NodoHT n = new NodoHT(name.replace(" ", ""));
             this.table[position] = n;
         }
     }
@@ -77,15 +77,15 @@ public class HashTable {
     //Funcion para buscar en el HashTable
     
     public NodoHT search(String name){
-        int position = hashing(name);
+        int position = hashing(name.toLowerCase());
         NodoHT temp = this.table[position];
         boolean exist = false;
         if (temp != null) {
-            if (temp.getNext() == null) {
+            if (temp.getNext() == null&&temp.getName().equals(name.toLowerCase())) {
                 exist = true;
             }else{
                 while(temp.getNext() != null && !exist){
-                    if (temp.getName().equals(name)) {
+                    if (temp.getName().equals(name.toLowerCase())) {
                         exist = true;
                     }else{
                         temp = temp.getNext();

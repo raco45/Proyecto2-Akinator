@@ -5,7 +5,7 @@ import DesicionTree.ArbolD;
 import HashTable.HashTable;
 
 /**
- *
+ *Clase auxiliar que funciona para guardar el Hashtable y el arbol
  * @author raco1
  */
 public class ArbolHash {
